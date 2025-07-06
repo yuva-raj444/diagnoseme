@@ -20,19 +20,21 @@ export default async function handler(
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     
     // Use gemini-1.5-flash instead of the deprecated gemini-pro-vision
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
     // Prepare the prompt for health condition analysis
     const prompt = `
-    You are a medical AI assistant trained to analyze images of skin conditions, rashes, and visible symptoms.
-    Based on the image provided, please:
+    You are a medical AI assistant trained to analyze the medical image and provide
 
     1. Identify the potential medical condition shown in the image
     2. Provide a confidence level (as a percentage)
     3. Assess the severity level (Mild, Moderate, Severe)
     4. Give a brief description of the condition
-    5. Suggest possible treatment options
-    6. Provide prevention tips
+    5. A possible diagnosis of the visible condition (1-2 points)
+    6. Safe home remedies (if applicable) (6-7 detailed points)
+    7. Critical warning signs that would require immediate medical attention (exactly 2 most important points)
+
+    
 
     Format your response as a JSON object with the following structure:
     {
@@ -40,8 +42,9 @@ export default async function handler(
       "confidence": 95,
       "severity": "Moderate",
       "description": "Brief description of the condition, its causes and symptoms",
-      "treatment": "Recommended treatment options",
-      "prevention": "Tips to prevent this condition"
+      "possible_diagnosis": "Recommended treatment options",
+      "safe_home_remedies": "Safe home remedies (if applicable) (6-7 detailed points)",
+      "warnings": "Critical warning signs (exactly 3 most important points)"
     }
 
     Important: Include a disclaimer that this is an AI-assisted preliminary assessment and not a substitute for professional medical advice.

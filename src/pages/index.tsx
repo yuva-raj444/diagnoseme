@@ -7,6 +7,7 @@ const HealthDiagnosisWebsite = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef(null);
 
   // Smooth scroll animation
@@ -17,6 +18,7 @@ const HealthDiagnosisWebsite = () => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setSelectedFile(file); // <--- Add this line to set the selectedFile state
       const reader = new FileReader();
       reader.onload = (e) => {
         setSelectedImage(e.target.result);
@@ -26,17 +28,18 @@ const HealthDiagnosisWebsite = () => {
   };
 
 const analyzeImage = async () => {
-  if (!selectedImage) return;
+  if (!selectedFile) return;
 
   setIsAnalyzing(true);
 
   try {
-    const base64 = selectedImage.split(',')[1];
+    const compressedBase64 = await compressImage(selectedFile, 0.8, 800);
+    const base64 = compressedBase64.split(",")[1];
 
-    const response = await fetch('/api/diagnose', {
-      method: 'POST',
+    const response = await fetch("/api/diagnose", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ imageBase64: base64 }),
     });
@@ -57,6 +60,65 @@ const analyzeImage = async () => {
   }
 };
 
+function compressImage(
+  file: File,
+  quality = 0.8,
+  maxSize = 800
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const img = new Image();
+
+      img.onload = () => {
+        let newW = img.width;
+        let newH = img.height;
+
+        if (img.width > maxSize || img.height > maxSize) {
+          const scale = maxSize / Math.max(img.width, img.height);
+          newW = Math.round(img.width * scale);
+          newH = Math.round(img.height * scale);
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = newW;
+        canvas.height = newH;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Canvas context not available"));
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, newW, newH);
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("Compression failed"));
+              return;
+            }
+
+            const reader2 = new FileReader();
+            reader2.onloadend = () => {
+              resolve(reader2.result as string);
+            };
+            reader2.readAsDataURL(blob);
+          },
+          "image/jpeg",
+          quality
+        );
+      };
+
+      img.onerror = () => reject(new Error("Failed to load image"));
+      img.src = reader.result as string;
+    };
+
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.readAsDataURL(file);
+  });
+}
   const Navigation = () => (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -252,10 +314,10 @@ const analyzeImage = async () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             {[
-              { number: "45K+", label: "Conditions Diagnosed" },
+              { number: "1K+", label: "Conditions Diagnosed" },
               { number: "98.7%", label: "Accuracy Rate" },
               { number: "24/7", label: "Available" },
-              { number: "150+", label: "Condition Types" }
+              { number: "5K+", label: "Condition Types" }
             ].map((stat, index) => (
               <div key={index} className="text-white">
                 <div className="text-4xl font-bold mb-2">{stat.number}</div>
@@ -372,13 +434,19 @@ const analyzeImage = async () => {
               
               <div className="bg-indigo-50 rounded-xl p-6">
                 <h3 className="font-semibold text-indigo-900 mb-3">Treatment</h3>
-                <p className="text-indigo-800">{analysisResult.treatment}</p>
+                <p className="text-indigo-800">{analysisResult.possible_diagnosis}</p>
               </div>
               
               <div className="bg-yellow-50 rounded-xl p-6">
-                <h3 className="font-semibold text-yellow-900 mb-3">Prevention Tips</h3>
-                <p className="text-yellow-800">{analysisResult.prevention}</p>
+                <h3 className="font-semibold text-yellow-900 mb-3">Home Remedies</h3>
+                <p className="text-yellow-800">{analysisResult.safe_home_remedies}</p>
               </div>
+
+              <div className="bg-red-50 rounded-xl p-6">
+                <h3 className="font-semibold text-red-900 mb-3">Warning Signs</h3>
+                <p className="text-bold text-red-600">{analysisResult.warnings}</p>
+              </div>
+
               
               <div className="bg-purple-50 rounded-xl p-6">
                 <h3 className="font-semibold text-purple-900 mb-3">Important Note</h3>
@@ -416,11 +484,11 @@ const analyzeImage = async () => {
           <div className="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl p-8">
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">2024</div>
+                <div className="text-3xl font-bold text-blue-600">2025</div>
                 <div className="text-gray-600">Founded</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">45K+</div>
+                <div className="text-3xl font-bold text-blue-600">1K+</div>
                 <div className="text-gray-600">People Helped</div>
               </div>
               <div className="text-center">
