@@ -600,7 +600,7 @@ function compressImage(
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">yuvarajhealthpro@gmail.com</p>
+                    <p className="text-gray-600">healthpro@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -660,7 +660,7 @@ function compressImage(
         </div>
         
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">© 2025 HealthCare Pro. All rights reserved | Yuvaraj</p>
+          <p className="text-gray-400">© 2025 HealthCare Pro. All rights reserved | 16th Bat</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="https://x.com/NaanKaanagan" className="text-gray-400 hover:text-white transition-colors">
               <Twitter className="w-5 h-5" />
