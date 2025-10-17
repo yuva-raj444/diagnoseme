@@ -129,7 +129,7 @@ function compressImage(
               <Heart className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Diagnose Me
+              DiagnoseMe AI
             </span>
           </div>
           
@@ -186,7 +186,7 @@ function compressImage(
 
   const HomePage = () => (
     <>
-      <SEO title="Diagnose Me — AI-Powered Medical Image Diagnosis" description="Upload a photo of a skin condition or visible symptom and get an instant AI-powered preliminary diagnosis and treatment guidance." />
+      <SEO title="DiagnoseMe AI — AI-Powered Medical Image Diagnosis" description="Upload a photo of a skin condition or visible symptom and get an instant AI-powered preliminary diagnosis and treatment guidance." />
       <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pt-16">
@@ -275,7 +275,7 @@ function compressImage(
       <div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl font-bold text-gray-900">Why Choose Diagnose Me?</h2>
+            <h2 className="text-4xl font-bold text-gray-900">Why Choose DiagnoseMe AI?</h2>
             <p className="text-xl text-gray-600">Advanced AI technology meets medical expertise</p>
           </div>
           
@@ -467,7 +467,7 @@ function compressImage(
     <div className="min-h-screen pt-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">About Diagnose Me</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">About DiagnoseMe AI</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Revolutionizing healthcare through advanced AI technology and medical expertise
           </p>
@@ -656,7 +656,7 @@ function compressImage(
             <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center">
               <Heart className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold">Diagnose Me</span>
+            <span className="text-xl font-bold">DiagnoseMe AI</span>
           </div>
           <p className="text-gray-400 max-w-md">
             Professional health condition diagnosis powered by advanced AI technology.
@@ -664,7 +664,7 @@ function compressImage(
         </div>
         
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">© 2025 Diagnose Me. All rights reserved | 16th Bat</p>
+          <p className="text-gray-400">© 2025 DiagnoseMe AI. All rights reserved | 16th Bat</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="https://x.com/NaanKaanagan" className="text-gray-400 hover:text-white transition-colors">
               <Twitter className="w-5 h-5" />

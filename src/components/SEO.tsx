@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import React from 'react';
 
-const SITE_NAME = 'Diagnose Me';
-// Default to your Vercel URL; can be overridden with NEXT_PUBLIC_SITE_URL
+const SITE_NAME = 'DiagnoseMe AI';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://diagnoseme.vercel.app';
-const DESCRIPTION = 'Diagnose Me - AI-powered preliminary health condition diagnosis from medical images.';
+const DESCRIPTION = 'DiagnoseMe AI - AI-powered preliminary health condition diagnosis from medical images.';
 
 const SEO: React.FC<{ title?: string; description?: string; path?: string }> = ({
   title,
@@ -18,11 +17,14 @@ const SEO: React.FC<{ title?: string; description?: string; path?: string }> = (
     '@context': 'https://schema.org',
     '@type': 'MedicalWebPage',
     'name': pageTitle,
+    'alternateName': 'Diagnose Me',
     'url': url,
     'description': description || DESCRIPTION,
+    'keywords': ['DiagnoseMe AI', 'Diagnose Me', 'AI diagnosis', 'medical image diagnosis'],
     'publisher': {
       '@type': 'Organization',
       'name': SITE_NAME,
+      'alternateName': 'Diagnose Me',
       'url': SITE_URL,
     },
   };
@@ -31,6 +33,7 @@ const SEO: React.FC<{ title?: string; description?: string; path?: string }> = (
     <Head>
       <title>{pageTitle}</title>
       <meta name="description" content={description || DESCRIPTION} />
+  <meta name="keywords" content="DiagnoseMe AI, Diagnose Me, AI diagnosis, medical image diagnosis" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
       {/* Open Graph */}
