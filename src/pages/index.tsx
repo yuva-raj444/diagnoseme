@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Upload, Heart, CheckCircle, AlertTriangle, Users, Star, ArrowRight, Menu, X, Microscope, Shield, Zap, Brain, Phone, Mail, MapPin, Github, Twitter, Linkedin } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const HealthDiagnosisWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -184,7 +185,9 @@ function compressImage(
   );
 
   const HomePage = () => (
-    <div className="min-h-screen">
+    <>
+      <SEO title="Diagnose Me — AI-Powered Medical Image Diagnosis" description="Upload a photo of a skin condition or visible symptom and get an instant AI-powered preliminary diagnosis and treatment guidance." />
+      <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pt-16">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100 via-transparent to-transparent opacity-70"></div>
@@ -328,6 +331,7 @@ function compressImage(
         </div>
       </div>
     </div>
+    </>
   );
 
   const DiagnosePage = () => (

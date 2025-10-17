@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://diagnoseme.vercel.app/sitemap.xml
