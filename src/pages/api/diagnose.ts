@@ -20,7 +20,7 @@ export default async function handler(
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     
     // Use gemini-1.5-flash instead of the deprecated gemini-pro-vision
-    const model = genAI.getGenerativeModel({ model: "	gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
     // Prepare the prompt for health condition analysis
     const prompt = `
