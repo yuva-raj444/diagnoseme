@@ -28,6 +28,15 @@ const HealthDiagnosisWebsite = () => {
     }
   };
 
+// Use your Vercel URL for mobile (Capacitor), relative path for web
+const API_BASE_URL = typeof window !== 'undefined' && 
+  (window.location.protocol === 'capacitor:' || 
+   window.location.protocol === 'ionic:' || 
+   window.location.hostname === 'localhost' ||
+   window.location.protocol === 'file:')
+  ? 'https://diagnoseme.vercel.app'  // Your Vercel deployed URL
+  : '';
+
 const analyzeImage = async () => {
   if (!selectedFile) return;
 
@@ -37,7 +46,7 @@ const analyzeImage = async () => {
     const compressedBase64 = await compressImage(selectedFile, 0.8, 800);
     const base64 = compressedBase64.split(",")[1];
 
-    const response = await fetch("/api/diagnose", {
+    const response = await fetch(`${API_BASE_URL}/api/diagnose`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
