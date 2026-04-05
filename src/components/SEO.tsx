@@ -33,22 +33,23 @@ const SEO: React.FC<{ title?: string; description?: string; path?: string }> = (
     <Head>
       <title>{pageTitle}</title>
       <meta name="description" content={description || DESCRIPTION} />
-  <meta name="keywords" content="DiagnoseMe AI, Diagnose Me, AI diagnosis, medical image diagnosis" />
+      <meta name="keywords" content="DiagnoseMe AI, Diagnose Me, AI diagnosis, medical image diagnosis" />
+      <meta name="msvalidate.01" content="18291EA70581FB70B0565FC9D08F8D3D" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+      
       {/* Open Graph */}
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description || DESCRIPTION} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content={SITE_NAME} />
-
+      
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-
+      
       {/* Primary canonical */}
       <link rel="canonical" href={url} />
-
+      
       {/* JSON-LD */}
       <script
         type="application/ld+json"
