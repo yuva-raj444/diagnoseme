@@ -2,6 +2,9 @@
   "name": "HealthCarePro",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +13,6 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "dotenv": "^16.6.0",
     "lucide-react": "^0.307.0",
     "motion": "^12.42.0",
     "next": "^13.5.11",
