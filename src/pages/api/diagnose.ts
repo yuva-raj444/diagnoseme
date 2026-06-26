@@ -29,7 +29,6 @@ export default async function handler(
     // Initialize the Gemini API with your API key
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
-<<<<<<< HEAD
     // Explicitly configure generation settings to force pure JSON output
     const model = genAI.getGenerativeModel({
       model: "gemini-3.1-flash-lite",
@@ -37,10 +36,6 @@ export default async function handler(
         responseMimeType: "application/json"
       }
     });
-=======
-    // Use gemini-1.5-flash instead of the deprecated gemini-pro-vision
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
->>>>>>> 51b866ffcd8d054a9e962b467ce2394f29213aa9
 
     // Prepare the prompt for health condition analysis
     const prompt = `
