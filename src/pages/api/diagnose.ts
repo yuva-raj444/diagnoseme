@@ -28,14 +28,9 @@ export default async function handler(
 
     // Initialize the Gemini API with your API key
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-    
-    // Explicitly configure generation settings to force pure JSON output
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-3.1-flash-lite",
-      generationConfig: {
-        responseMimeType: "application/json"
-      }
-    });
+
+    // Use gemini-1.5-flash instead of the deprecated gemini-pro-vision
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // Prepare the prompt for health condition analysis
     const prompt = `
@@ -76,7 +71,7 @@ export default async function handler(
     const result = await model.generateContent([prompt, ...imageParts]);
     const response = await result.response;
     let text = response.text().trim();
-    
+
     // Fallback: Strip markdown block wrappers if Gemini leaks backticks despite configuration
     if (text.startsWith("```")) {
       text = text.replace(/^```json\s*/i, '').replace(/```$/, '').trim();
@@ -88,7 +83,7 @@ export default async function handler(
       return res.status(200).json(jsonResponse);
     } catch (parseError) {
       console.error('Error parsing JSON from Gemini:', parseError);
-      
+
       // Secondary cleanup: regex extract the object
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
@@ -96,13 +91,13 @@ export default async function handler(
           const extractedJson = JSON.parse(jsonMatch[0]);
           return res.status(200).json(extractedJson);
         } catch (e) {
-          return res.status(500).json({ 
+          return res.status(500).json({
             error: 'Failed to safely parse output structure from AI model',
             rawResponse: text
           });
         }
       } else {
-        return res.status(500).json({ 
+        return res.status(500).json({
           error: 'AI response did not follow the required object structure',
           rawResponse: text
         });
@@ -110,10 +105,10 @@ export default async function handler(
     }
   } catch (error: any) {
     console.error('Diagnosis error:', error);
-    
+
     // Catch API limits or network exhaustion safely (returns clean response instead of a 500 crash)
     const status = error.status || 500;
-    const message = (status === 429 || status === 503) 
+    const message = (status === 429 || status === 503)
       ? "The Gemini API service limits are currently fully exhausted or experiencing high demand. Please try again in a few moments."
       : "Failed to process the image assessment safely.";
 
