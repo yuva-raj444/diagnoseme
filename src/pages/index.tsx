@@ -299,7 +299,7 @@ const API_BASE_URL = typeof window !== 'undefined' &&
               onClick={() => setCurrentPage('diagnose')}
               className="px-5 py-2 bg-[#0071e3] hover:bg-[#147ce5] text-white text-xs font-semibold rounded-full transition-all duration-300 shadow-sm shadow-blue-500/10"
             >
-              Analyze Specimen
+              Analyze Condition
             </motion.button>
           </div>
           
@@ -348,7 +348,7 @@ const API_BASE_URL = typeof window !== 'undefined' &&
                 }}
                 className="w-full mt-3 py-3 bg-[#0071e3] text-white text-center font-semibold rounded-xl text-sm shadow-md"
               >
-                Analyze Specimen
+                Analyze Condition
               </button>
             </div>
           </motion.div>
@@ -725,7 +725,7 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
               <Activity className="w-3.5 h-3.5 text-[#0071e3]" />
               <span>Diagnostic Portal</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-neutral-900 leading-tight">AI Pathology Laboratory</h1>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-neutral-900 leading-tight">AI Diagnosis Laboratory</h1>
             <p className="text-md text-neutral-500 max-w-xl mx-auto font-normal">
               Upload clear, high-contrast imagery of skin concerns, moles, rashes, or local visible symptoms for immediate triage model evaluation.
             </p>
@@ -774,7 +774,7 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
                       )}
 
                       <div className="absolute inset-0 bg-neutral-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-xs text-white font-semibold uppercase bg-neutral-900/80 px-3 py-1.5 rounded-full">SPECIMEN LOADED</span>
+                        <span className="text-xs text-white font-semibold uppercase bg-neutral-900/80 px-3 py-1.5 rounded-full">IMAGE LOADED</span>
                       </div>
                     </div>
                     <div className="flex justify-center space-x-3">
@@ -809,7 +809,7 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
                       <Upload className="w-6 h-6 text-neutral-500" />
                     </motion.div>
                     <div className="space-y-1.5">
-                      <h3 className="text-md font-bold text-neutral-800">Upload Visual Specimen</h3>
+                      <h3 className="text-md font-bold text-neutral-800">Upload Image </h3>
                       <p className="text-neutral-500 text-xs max-w-sm mx-auto font-normal">
                         Drag and drop your clinical photo here, or browse local files. Support for standard formats up to 10MB.
                       </p>
