@@ -1062,7 +1062,7 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
             <div className="bg-[#f5f5f7] border border-neutral-200 rounded-[2rem] p-8">
               <div className="grid grid-cols-2 gap-6 text-center">
                 <motion.div whileHover={{ scale: 1.03 }} className="bg-white border border-neutral-100 rounded-2xl p-6 shadow-sm">
-                  <div className="text-2xl font-bold text-neutral-800 mb-1">2025</div>
+                  <div className="text-2xl font-bold text-neutral-800 mb-1">2026</div>
                   <div className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider">System Launch</div>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.03 }} className="bg-white border border-neutral-100 rounded-2xl p-6 shadow-sm">
@@ -1272,7 +1272,7 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
         </div>
         
         <div className="border-t border-neutral-200 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-          <p className="text-neutral-400">© 2025 DiagnoseMe AI. All rights reserved | 16th Bat</p>
+          <p className="text-neutral-400">© 2026 DiagnoseMe AI. All rights reserved | 16th Bat</p>
           <div className="flex space-x-5 mt-4 md:mt-0">
             <a href="https://x.com/NaanKaanagan" className="text-neutral-400 hover:text-neutral-700 transition-colors">
               <Twitter className="w-4 h-4" />
