@@ -70,6 +70,8 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isCapacitor, setIsCapacitor] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
   
@@ -105,7 +107,8 @@ export default function App() {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedFile(file); 
+      setSelectedFile(file);
+      setSaveSuccess(false);
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
@@ -159,27 +162,54 @@ const API_BASE_URL = typeof window !== 'undefined' &&
 
     setIsAnalyzing(true);
     setAnalysisResult(null);
+    setSaveSuccess(false);
 
     try {
       const compressedBase64 = await compressImage(selectedFile, 0.8, 800);
       const base64 = compressedBase64.split(",")[1];
 
+      // Step 1: Get AI diagnosis
       const response = await fetch(`${API_BASE_URL}/api/diagnose`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64 }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        setAnalysisResult(data);
-      } else {
+      if (!response.ok) {
         console.error(data);
         alert("Diagnosis failed: " + data.error);
+        return;
       }
+
+      setAnalysisResult(data);
+
+      // Step 2: Save image + report to Azure Blob Storage (server-side, silent)
+      setIsSaving(true);
+      try {
+        const formData = new FormData();
+        formData.append('image', selectedFile);
+        formData.append('diagnosis', JSON.stringify(data));
+
+        const saveRes = await fetch(`${API_BASE_URL}/api/save-report`, {
+          method: 'POST',
+          body: formData,
+        });
+        const saveJson = await saveRes.json();
+
+        if (saveRes.ok && saveJson.success) {
+          setSaveSuccess(true);
+          console.log('✅ Saved to Azure, ID:', saveJson.reportId);
+        } else {
+          console.error('❌ Azure save failed:', saveJson.error);
+        }
+      } catch (saveErr) {
+        console.error('❌ Azure save error:', saveErr);
+      } finally {
+        setIsSaving(false);
+      }
+
     } catch (error) {
       console.error(error);
       alert("An error occurred during diagnosis.");
