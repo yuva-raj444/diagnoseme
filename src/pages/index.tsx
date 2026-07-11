@@ -17,7 +17,6 @@ import {
   Phone, 
   Mail, 
   MapPin, 
-  Github, 
   Twitter, 
   Linkedin,
   Activity,
@@ -1273,9 +1272,6 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
                   <motion.a whileHover={{ y: -2 }} href="https://www.linkedin.com/in/yuvaraj-g-53a1a827b/" className="w-10 h-10 bg-neutral-50 border border-neutral-200 hover:border-neutral-300 rounded-xl flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors">
                     <Linkedin className="w-4 h-4 text-neutral-600" />
                   </motion.a>
-                  <motion.a whileHover={{ y: -2 }} href="https://github.com/yuva-raj444" className="w-10 h-10 bg-neutral-50 border border-neutral-200 hover:border-neutral-300 rounded-xl flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors">
-                    <Github className="w-4 h-4 text-neutral-600" />
-                  </motion.a>
                 </div>
               </div>
             </div>
@@ -1309,9 +1305,6 @@ className="text-neutral-500 font-['Libre_Baskerville'] italic font-normal tracki
             </a>
             <a href="https://www.linkedin.com/in/yuvaraj-g-53a1a827b/" className="text-neutral-400 hover:text-neutral-700 transition-colors">
               <Linkedin className="w-4 h-4" />
-            </a>
-            <a href="https://github.com/yuva-raj444" className="text-neutral-400 hover:text-neutral-700 transition-colors">
-              <Github className="w-4 h-4" />
             </a>
           </div>
         </div>
