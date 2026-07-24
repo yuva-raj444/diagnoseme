@@ -184,11 +184,21 @@ const API_BASE_URL = typeof window !== 'undefined' &&
 
       setAnalysisResult(data);
 
-      // Step 2: Save image + report to Azure Blob Storage (server-side, silent)
+      // Step 2: Save compressed image + report to Azure Blob Storage (server-side, silent)
       setIsSaving(true);
       try {
+        // Convert the compressed base64 back to a Blob so Azure receives the
+        // same compressed image that was sent to Gemini (not the original file).
+        const byteString = atob(base64);
+        const byteArray = new Uint8Array(byteString.length);
+        for (let i = 0; i < byteString.length; i++) {
+          byteArray[i] = byteString.charCodeAt(i);
+        }
+        const compressedBlob = new Blob([byteArray], { type: 'image/jpeg' });
+        const compressedFile = new File([compressedBlob], 'compressed.jpg', { type: 'image/jpeg' });
+
         const formData = new FormData();
-        formData.append('image', selectedFile);
+        formData.append('image', compressedFile);
         formData.append('diagnosis', JSON.stringify(data));
 
         const saveRes = await fetch(`${API_BASE_URL}/api/save-report`, {
@@ -199,7 +209,7 @@ const API_BASE_URL = typeof window !== 'undefined' &&
 
         if (saveRes.ok && saveJson.success) {
           setSaveSuccess(true);
-          console.log('✅ Saved to Azure, ID:', saveJson.reportId);
+          console.log('✅ Compressed image saved to Azure, ID:', saveJson.reportId);
         } else {
           console.error('❌ Azure save failed:', saveJson.error);
         }
